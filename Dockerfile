@@ -78,8 +78,7 @@ ENTRYPOINT ["jupyter", "notebook", "--allow-root", "--ip=0.0.0.0"]
 ENV NODE_PATH=/usr/lib/node_modules
 RUN apt-get update \
     && apt-get install -y git gcc g++ libpython2.7-stdlib make \
-    && npm --unsafe-perm install -g git+https://github.com/vmarkovtsev/nel \
-    && npm --unsafe-perm install -g ijavascript \
+    && npm --unsafe-perm install -g ijavascript-await \
     && ijsinstall \
     && echo "c.Spawner.env_keep.append('NODE_PATH')" >> /root/.jupyter/jupyter_notebook_config.py \
     && apt-get remove -y git gcc g++ libpython2.7-stdlib make \
