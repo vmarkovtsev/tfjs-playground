@@ -60,13 +60,15 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# jupyter layer
+# jupyter +tensorflowjs layer
 RUN apt-get update \
-    && apt-get install -y --no-install-suggests --no-install-recommends python3 python3-dev \
+    && apt-get install -y --no-install-suggests --no-install-recommends python3 python3-dev python3-distutils \
     && curl https://bootstrap.pypa.io/get-pip.py | python3 \
-    && pip3 install jupyter \
+    && pip3 install jupyter tensorflowjs \
     && mkdir /root/.jupyter/ \
     && echo 'c.NotebookApp.token = ""' > /root/.jupyter/jupyter_notebook_config.py \
+    && curl -o /usr/local/bin/hub2graph https://raw.githubusercontent.com/vmarkovtsev/hub/master/examples/hub2graph.py \
+    && chmod +x /usr/local/bin/hub2graph \
     && apt-get remove -y python3-dev \
     && apt-get autoremove -y \
     && apt-get clean \
@@ -96,4 +98,4 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # custom npm packages
-RUN npm install -g csv-parse promisepipe
+RUN npm install -g csv-parse promisepipe browser-sync
